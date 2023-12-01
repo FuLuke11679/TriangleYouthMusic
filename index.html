@@ -9,19 +9,24 @@
     <link rel="stylesheet" href="./css/line-awesome.min.css">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <script src="./node_modules/jquery/dist/jquery.js"></script> 
-    <script> 
-    $(function(){
-      $("#includedContent").load("./fig_1213c.html"); 
-    });
-    </script> 
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+   <script>
+      $(function(href) {
+         $("#includeHtml").load("./fig_1213c.html");
+      });
+   </script>
+   <script>
+    function pictureChange()
+    {
+          document.getElementById("citiesImage").src="./figures/cities1314.png";
+    }
+</script>
 </head>
 <body data-bs-spy="scroll" data-bs-target=".navbar">
     <!-- NavBar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container flex-lg-column">
           <a class="navbar-brand mx-lg-auto mb-lg-4" href="#">
-            <span class="h3 fw-bold d-block d-lg-none">Luke Fu</span>
             <img src="./images/TYM.png" class ="d-none d-md-block" alt="">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,10 +41,16 @@
                 <a class="nav-link" href="#map">Maps</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#graph">Graphs</a>
+                <a class="nav-link" href="#cities">Cities</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#schools">Schools</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contact">Contact</a>
               </li>
               </li>
             </ul>
@@ -54,7 +65,7 @@
                         <h1 class = "display-4 fw-bold" data-aos="fade-up">Duke Impact Investing Group <span class = "text-brand">Triangle Youth Music</span> Final Deliverable</h1>
                         <p class = "lead mt-2 mb-4" data-aos="fade-up" data-aos-delay="300">By: Bella Tang, Lisa Zhang, Haiyan Wang, and Luke Fu</p>
                         <div data-aos="fade-up" data-aos-delay="600">
-                          <a href="#projects" class = "btn btn-brand me-3">Explore Our Work</a>
+                          <a href="#graph" class = "btn btn-brand me-3">Explore Our Work</a>
                           <a href="tel:8032697531" class = "link-custom"> Contact Us </a>
                         </div>
                     </div>
@@ -108,22 +119,126 @@
   
             </div>
           </section>
+    <!-- CITIES -->
+    <section id="cities" class="full-height px-lg-5">
+      <div class="container">
 
-        <!-- GRAPH -->
-        <section id = "graph" class = "full-height px-lg-5">
-            <div class = "container">
-  
-              <div class = "row pb-4" data-aos="fade-up">
-                <div class = "col-lg-8">
-                  <h6 class = "text-brand">Graph</h6>
-                  <h1>2012-2013</h1>
+        <div class="row pb-4" data-aos="fade-up">
+          <div class="col-lg-8 m-lg-2">
+            <h6 class="text-brand">Cities</h6>
+            <h1>2012-2022</h1>
+            <img id="citiesImage" class="large-image" src="./figures/cities2012.png" data-aos="fade-up" data-aos-delay="250">
+            <div class="slidecontainer" data-aos="fade-up" data-aos-delay="250">
+              <input type="range" min="2012" max="2022" value="2012" class="slider" id="citiesSlider">
+              <p>Year: <span id="citiesDemo"></span></p>
+            </div>
+            <script>
+              var citiesSlider = document.getElementById("citiesSlider");
+              var citiesOutput = document.getElementById("citiesDemo");
+              var citiesImage = document.getElementById("citiesImage");
+              citiesOutput.innerHTML = citiesSlider.value;
+
+              citiesSlider.oninput = function () {
+                citiesOutput.innerHTML = this.value;
+                updateCitiesImage(this.value);
+              }
+
+              citiesImage.src = './figures/cities2012.png'
+
+              function updateCitiesImage(year) {
+                // Adjust the image source based on the selected year
+                citiesImage.src = `./figures/cities${year}.png`;
+              }
+            </script>
+          </div>
+        </div>
+        <div id="includedCitiesContent"></div>
+      </div>
+    </section>
+
+    <!-- SCHOOLS -->
+    <section id="schools" class="full-height px-lg-5">
+      <div class="container">
+
+        <div class="row pb-4" data-aos="fade-up">
+          <div class="col-lg-8">
+            <h6 class="text-brand">Schools</h6>
+            <h1>2012-2022</h1>
+            <img id="schoolsImage" class="large-image" src="./figures/schools2014.png" data-aos="fade-up" data-aos-delay="250">
+            <div class="slidecontainer" data-aos="fade-up" data-aos-delay="250">
+              <input type="range" min="2014" max="2022" value="2014" class="slider" id="schoolsSlider">
+              <p>Year: <span id="schoolsDemo"></span></p>
+            </div>
+            <script>
+              var schoolsSlider = document.getElementById("schoolsSlider");
+              var schoolsOutput = document.getElementById("schoolsDemo");
+              var schoolsImage = document.getElementById("schoolsImage");
+              schoolsOutput.innerHTML = schoolsSlider.value;
+
+              schoolsSlider.oninput = function () {
+                schoolsOutput.innerHTML = this.value;
+                updateSchoolsImage(this.value);
+              }
+
+              schoolsImage.src = './figures/schools2014.png'
+
+              function updateSchoolsImage(year) {
+                // Adjust the image source based on the selected year
+                schoolsImage.src = `./figures/schools${year}.png`;
+              }
+            </script>
+          </div>
+        </div>
+        <div id="includedSchoolsContent"></div>
+      </div>
+    </section>
+    <!--ABOUT-->
+    <section id="contact" class="full-height px-lg-5">
+      <div class="container">
+          <div class="row justify-content-center text-center " data-aos="fade-up">
+              <div class="col-lg-8 pb-4" data-aos="fade-up">
+                  <h6 class="text-brand">CONTACT</h6>
+                  <h1>Any Questions, Concerns, Comments?</h1>
+              </div>
+              <div class="col-lg-8" data-aos="fade-up" data-aos-delay="250">
+                  <form action="https://formspree.io/f/xqkvvwvl" class="row g-lg-3 gy-3" method="POST">
+                      <div class="form-group col-md-6">
+                          <input name="name" type="text" class="form-control" for="Name" placeholder="Enter your name">
+                      </div>
+                      <div class="form-group col-md-6">
+                          <input type="email" for="Email" class="form-control" placeholder="Enter your email address" name="email">
+                      </div>
+                      <div class="form-group col-md-12">
+                          <input type="text" class="form-control" placeholder="Enter subject" name="subject">
+                      </div>
+                      <div class="form-group col-md-12">
+                          <textarea name="message" rows="4" for="Message" class="form-control" placeholder="Enter your message"></textarea>
+                      </div>
+                      <div class="form-group col-md-12 d-grid">
+                          <button type="submit" class="btn btn-brand">Contact</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+
+  </section>
+        <!--FOOTER-->
+        <footer class="py-5">
+          <div class="container">
+            <div class="row gy-4 justify-content-between">
+              <div class="col-auto">
+                <p class="mb-0">Duke Impact Investing Group</p>
+              </div>
+              <div class="col-auto">
+                <div class="social-icons">
+                  <a href="https://www.linkedin.com/in/luke-fu/" target="_blank"><i class="lab la-linkedin"></i></a>
+                  <a href="https://github.com/FuLuke11679" target="_blank"><i class="lab la-github"></i></a>
                 </div>
               </div>
-  
-              <div data-aos="fade-up" id="includedContent"></div>
-  
             </div>
-          </section>
+          </div>
+        </footer>
+
       </div>
       <script src="./js/bootstrap.bundle.min.js"></script>
       <script src="./js/aos.js"></script>

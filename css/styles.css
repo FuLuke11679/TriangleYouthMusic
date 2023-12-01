@@ -212,3 +212,8 @@ img {
   border-radius: 100px;
   font-size: 24px;
 }
+
+.large-image {
+  width: 100%; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
