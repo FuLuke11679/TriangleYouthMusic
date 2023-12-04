@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "TriangleYouthMusic",
+			"path": "."
+		},
+		{
+			"name": "figures",
+			"path": "../../Downloads/figures"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "TriangleYouthMusic"
+	}
+}
