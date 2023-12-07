@@ -216,7 +216,6 @@
 </section>
 <section id="teachers" class="full-height px-lg-5">
   <div class="container">
-
     <div class="row pb-4" data-aos="fade-up">
       <div class="col-lg-8">
         <h6 class="text-brand">Table</h6>
@@ -281,99 +280,75 @@
 </section>
 <!--SIBLINGS-->
 <section id="siblings" class="full-height px-lg-5">
-  <div class="container">
-
-      <div class="row pb-4" data-aos="fade-up">
-          <div class="col-lg-8">
-              <h6 class="text-brand">Tables</h6>
-              <h1>Siblings</h1>
-              <div id="generatedCSVTableContainer" class="mt-3"></div>
-              <div class="demo-container">
-                <a id="download_csv" href="#" download="">
-                    <button>DOWNLOAD</button>
-                </a>
-            </div>
-          </div>
+  <div class="row pb-4" data-aos="fade-up">
+    <div class="col-lg-8">
+      <h6 class="text-brand">Tables</h6>
+      <h1>Siblings</h1>
+      <div id="generatedCSVTableContainer" class="mt-3"></div>
+      <div class="demo-container">
+        <button onclick="loadSIB()">Load Table</button>
+        <button onclick="closeTable()">Close Table</button>
+        <a id="download_csv" href="#" download="">
+          <button>DOWNLOAD</button>
+        </a>
       </div>
-
-      <script>
-        $(document).ready(function () {
-          // Existing code for handling the "Download CSV File" button
-          $('.downloadCSVFileButton').click(function () {
-            var textFile = $('.postingFile textarea').val();
-            var element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textFile));
-            element.setAttribute('download', 'filename.csv');
-            element.style.display = 'none';
-            if (typeof element.download != "undefined") {
-              // Browser has support - process the download
-              document.body.appendChild(element);
-              element.click();
-              document.body.removeChild(element);
-            } else {
-              // Browser does not support - alert the user
-              alert('This functionality is not supported by the current browser, recommend trying with Google Chrome instead.  (http://caniuse.com/#feat=download)');
-            }
-          });
-      
-          // New code for generating CSV table and handling download
-          function generateCSVTable() {
-            var csvFilePath = `./tables/siblings.csv`;
-      
-            fetch(csvFilePath)
-              .then(response => response.text())
-              .then(csvData => {
-                var tableHTML = csvToTableHTML(csvData);
-                document.getElementById("generatedCSVTableContainer").innerHTML = tableHTML;
-      
-                // Update the download link with the actual CSV file content
-                updateDownloadLink(csvData);
-              })
-              .catch(error => console.error('Error fetching CSV:', error));
-          }
-      
-          function updateDownloadLink(csvData) {
-            const blob = createBlob(csvData);
-            const url = URL.createObjectURL(blob);
-      
-            const downloadLink = document.getElementById("download_csv");
-            downloadLink.href = url;
-            downloadLink.download = `siblings.csv`; // Set the desired filename here
-          }
-      
-          function createBlob(data) {
-            return new Blob([data], { type: "text/csv" });
-          }
-      
-          function csvToTableHTML(csvData) {
-            var rows = csvData.split('\n');
-            var tableHTML = '<table border="2">';
-      
-            rows.forEach(row => {
-              var columns = row.split(',');
-              tableHTML += '<tr>';
-              columns.forEach(column => {
-                tableHTML += `<td>${column}</td>`;
-              });
-              tableHTML += '</tr>';
-            });
-      
-            tableHTML += '</table>';
-            return tableHTML;
-          }
-      
-          // Attach the click event to the download button
-          const downloadButton = document.getElementById("download_csv");
-          downloadButton.addEventListener("click", function () {
-            // Do not need to update the download link for the button
-            // since we want to download the data from the CSV file directly.
-          });
-      
-          // Call the function to generate CSV table when the page loads
-          generateCSVTable();
-        });
-      </script>
+    </div>
   </div>
+  
+  <script>
+    function loadSIB() {
+      var csvFilePath = `./tables/siblings.csv`;
+  
+      fetch(csvFilePath)
+        .then(response => response.text())
+        .then(csvData => {
+          var tableHTML = csvToTableHTML(csvData);
+          document.getElementById("generatedCSVTableContainer").innerHTML = tableHTML;
+  
+          // Update the download link with the actual CSV file content
+          updateDownloadLink(csvData);
+        })
+        .catch(error => console.error('Error fetching CSV:', error));
+    }
+
+    function closeTable() {
+      // Clear the table content
+      document.getElementById("generatedCSVTableContainer").innerHTML = '';
+  
+      // Reset the table visibility to false
+      tableVisible = false;
+    }
+  
+    function updateDownloadLink(csvData) {
+      const blob = createBlob(csvData);
+      const url = URL.createObjectURL(blob);
+  
+      const downloadLink = document.getElementById("download_csv");
+      downloadLink.href = url;
+      downloadLink.download = `siblings.csv`; // Set the desired filename here
+    }
+  
+    function createBlob(data) {
+      return new Blob([data], { type: "text/csv" });
+    }
+  
+    function csvToTableHTML(csvData) {
+      var rows = csvData.split('\n');
+      var tableHTML = '<table border="2">';
+  
+      rows.forEach(row => {
+        var columns = row.split(',');
+        tableHTML += '<tr>';
+        columns.forEach(column => {
+          tableHTML += `<td>${column}</td>`;
+        });
+        tableHTML += '</tr>';
+      });
+  
+      tableHTML += '</table>';
+      return tableHTML;
+    }
+  </script>
 </section>
     <!-- VISUALIZATIONS -->
     <section id="eda" class="full-height px-lg-5">
@@ -383,9 +358,11 @@
               <div class="col-lg-8 m-lg-2">
                   <h6 class="text-brand">Visualizations</h6>
                   <h1>Exploratory Data Analysis</h1>
-                  <img id="gradeProp" data-aos-delay="250" class="large-image mb-3 mt-2 mx-auto d-block" src="./images/gradeprop.png" data-aos="fade-up" data-aos-delay="250">
-                  <img id="participation" data-aos-delay="500" class="large-image mb-3 rounded mx-auto d-block" src="./images/participation.png" data-aos="fade-up" data-aos-delay="250">
-                  <img id="sib_age" data-aos-delay="750" class="large-image mb-3 rounded mx-auto d-block" src="./images/sib_age.png" data-aos="fade-up" data-aos-delay="250">
+                  <img id="gradeProp" class="large-image mb-3 mt-2 mx-auto d-block" src="./images/gradeprop.png" data-aos="fade-up" data-aos-delay="250">
+                  <img id="participation" class="large-image mb-3 rounded mx-auto d-block" src="./images/participation.png" data-aos="fade-up" data-aos-delay="250">
+                  <img id="sib_age" class="large-image mb-3 rounded mx-auto d-block" src="./images/sib_age.png" data-aos="fade-up" data-aos-delay="250">
+                  <img id="sib_age" class="large-image mb-3 rounded mx-auto d-block" src="./reducedschools_newstudents.png" data-aos="fade-up" data-aos-delay="250">
+                  <img id="sib_age" class="large-image mb-3 rounded mx-auto d-block" src="./reducedschools_students.png" data-aos="fade-up" data-aos-delay="250">
               </div>
           </div>
           <div id="includedCitiesContent"></div>
